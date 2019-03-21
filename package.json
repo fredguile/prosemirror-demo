@@ -1,0 +1,26 @@
+{
+  "name": "prosemirror-demo",
+  "version": "1.0.0",
+  "description": "Scratchpad around ProseMirror for research",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "prosemirror-commands": "^1.0.7",
+    "prosemirror-example-setup": "^1.0.1",
+    "prosemirror-history": "^1.0.4",
+    "prosemirror-keymap": "^1.0.1",
+    "prosemirror-schema-basic": "^1.0.0",
+    "prosemirror-schema-list": "^1.0.2",
+    "prosemirror-state": "^1.2.2",
+    "prosemirror-view": "^1.8.3",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.8",
+    "parcel-bundler": "^1.12.2",
+    "typescript": "^3.3.4000"
+  }
+}
