@@ -33,10 +33,10 @@ export default function createEditor(editorEl: Element, contentEl: Element) {
 
   const view = new EditorView(editorEl, {
     state,
-    nodeViews: {
-      // paragraph: wrapInReactNodeView("p"),
-      // link: wrapInReactNodeView("a")
-    },
+    // nodeViews: {
+    //   paragraph: wrapInReactNodeView("p"),
+    //   link: wrapInReactNodeView("a")
+    // },
     dispatchTransaction: transaction => {
       const nextState = view.state.apply(transaction);
       view.updateState(nextState);
