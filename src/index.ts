@@ -1,5 +1,5 @@
-import createEditor from "./src/createEditor";
-import domObserver from "./src/domObserver";
+import createEditor from "./createEditor";
+import domObserver from "./domObserver";
 
 const editorEl = document.querySelector("#editor");
 createEditor(editorEl, document.querySelector("#content"));
