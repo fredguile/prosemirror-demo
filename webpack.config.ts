@@ -32,7 +32,8 @@ const config: webpack.Configuration = {
     filename: "prosemirror-demo.bundle.js"
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js"]
+    extensions: [".ts", ".tsx", ".js"],
+    modules: ['node_modules', '..']
   },
   plugins: [
     new CleanWebpackPlugin(),
