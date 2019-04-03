@@ -3,6 +3,7 @@ import { render } from "react-dom";
 import { Node as PMNode } from "prosemirror-model";
 import { EditorView } from "prosemirror-view";
 
+// hmm, this part is currently useless... please don't look at it :)
 export interface ReactComponentProps {
   view: EditorView;
   getPos: any;
