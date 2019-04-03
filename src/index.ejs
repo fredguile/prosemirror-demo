@@ -73,19 +73,20 @@
         <br />
         What we experience: 
         <ul>
+          <li>it works in the plain contenteditable</li>       
           <li>it works inside ProseMirror!</li>       
         </ul>
-        Note that for this to work, we would have to <b>override Prosemirror paragraph to be rendered with a DIV too</b>:
+        Looks good? To implement this, we will have to override Prosemirror's paragraph to be rendered with a DIV:
         <ul>
-          <li>To keep HTML semantically correct</li>
           <li>
-            To have the inline node to be indeed <b>**inlined**</b> (because with P it doesn't work...)
-          </li>
+              To have the inline node to be indeed <b>**inlined**</b> (because with P it doesn't work...)
+            </li>
+          <li>To keep HTML semantically correct</li>        
         </ul>
       </div>
 
       <p>
-          *the condition for <u>all of this to work</u> is to use a modified Android's InputConnection that forcefully sends
+          * Also, the condition for <u>all of this to work</u> is to use a modified Android's InputConnection that forcefully sends
           keydown/keyup events on every BACKSPACE (<a
             href="https://developer.android.com/reference/android/view/inputmethod/InputConnection"
             >docs</a
