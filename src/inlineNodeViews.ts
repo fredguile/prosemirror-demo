@@ -67,7 +67,7 @@ export function createSchemaWithInlineNodes(initialSchema: Schema) {
   });
 }
 
-function createInsertInlineNodeCmd(inlineNodeType: NodeType, which: string) {
+function createInsertInlineNodeCmd(inlineNodeType: NodeType, nodeType: string) {
   return (state, dispatch?) => {
     const { $from } = state.selection;
     const index = $from.index();
@@ -76,7 +76,9 @@ function createInsertInlineNodeCmd(inlineNodeType: NodeType, which: string) {
       return false;
 
     if (dispatch)
-      dispatch(state.tr.replaceSelectionWith(inlineNodeType.create({ which })));
+      dispatch(
+        state.tr.replaceSelectionWith(inlineNodeType.create({ type: nodeType }))
+      );
 
     return true;
   };
