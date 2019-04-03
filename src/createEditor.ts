@@ -5,12 +5,14 @@ import { EditorState, Plugin } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
 import { exampleSetup } from "prosemirror-example-setup";
 
+import createSchemaWithCustomParagraph from "./customParagraph";
+
 import {
   createSchemaWithInlineNodes,
-  createInsertInlineNodeCmd,
-  createInlineNodeMenu,
-  dinos
-} from "./inlineNodeView";
+  createInlineNodeMenu
+} from "./inlineNodeViews";
+
+import { compose } from "./utils";
 
 const statsPlugin = new Plugin({
   props: {
@@ -24,12 +26,20 @@ const statsPlugin = new Plugin({
   }
 });
 
-export default function createEditor(editorEl: Element, contentEl: Element) {
-  const schemaWithList = new Schema({
-    nodes: addListNodes(schema.spec.nodes, "paragraph block*", "block"),
+export function createSchemaWithList(initialSchema: Schema) {
+  return new Schema({
+    nodes: addListNodes(initialSchema.spec.nodes, "paragraph block*", "block"),
     marks: schema.spec.marks
   });
-  const mySchema = createSchemaWithInlineNodes(schemaWithList);
+}
+
+export default function createEditor(editorEl: Element, contentEl: Element) {
+  const mySchema = compose(
+    createSchemaWithInlineNodes,
+    createSchemaWithList,
+    createSchemaWithCustomParagraph
+  )(schema);
+
   const menu = createInlineNodeMenu(mySchema);
   const initialDoc = DOMParser.fromSchema(mySchema).parse(contentEl);
 

@@ -6,8 +6,17 @@
         border: 1px solid black;
       }
 
-      .inline-node,
-      .dinosaur {
+      .paragraph {
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+      }
+
+      .inline-node1 {
+        background: green;
+        color: white;
+      }
+
+      .inline-node2 {
         display: inline-block;
         background: red;
         color: white;
@@ -20,24 +29,68 @@
     <div style="display: none" id="content">
       <h3>Hello ProseMirror</h3>
 
-      <div>
-        This is an inline node:
-        <div class="dinosaur" data-dino-type="brontosaurus">
-          <div>:brontosaurus</div>
+      <p>
+        First kind of inline node is rendered using a SPAN (for some reasons it's buggy on Android):
+        <span class="inline-node1" data-span-inline-node="brontosaurus"
+          >:brontosaurus</span
+        >
+      </p>
+
+      <div class="paragraph">
+        Second kind of inline node is rendered using a DIV (and 
+        it works on Android... with condition*):
+        <div class="inline-node2" data-div-inline-node="tyrannosaurus">
+          <div>:tyrannosaurus</div>
         </div>
       </div>
     </div>
 
     <div id="noteditor" contenteditable="true">
-      <div>This isn't ProseMirror, just a contenteditable div.</div>
+      <div class="paragraph">
+        <b>This isn't ProseMirror, just a simple contenteditable div.</b>
+      </div>
+
+      <p>
+        Here's how we would usually render inline nodes:
+        <span class="inline-node1" contenteditable="false"
+          >:using SPAN</span
+        >
+        <br />
+        Easy isn't it? But try deleting it from inside an Android WebView...
+        <br />
+        What we experience: 
+        <ul>
+          <li>it does works outside ProseMirror (using a custom InputConnection)</li>
+          <li>it doesn't work inside ProseMirror (duplicates content)</li>
+        </ul>
+      </p>
 
       <div class="paragraph">
-        Try typing after the uneditable word:
-        <div class="inline-node" contenteditable="false">
-          <div>inline div</div>
+        Here's how we try to make inline nodes to work on Android:
+        <div class="inline-node2" contenteditable="false">
+          <div>:using inline DIV</div>
         </div>
         <br />
+        What we experience: 
+        <ul>
+          <li>it works inside ProseMirror!</li>       
+        </ul>
+        Note that for this to work, we would have to <b>override Prosemirror paragraph to be rendered with a DIV too</b>:
+        <ul>
+          <li>To keep HTML semantically correct</li>
+          <li>
+            To have the inline node to be indeed <b>**inlined**</b> (because with P it doesn't work...)
+          </li>
+        </ul>
       </div>
+
+      <p>
+          *the condition for <u>all of this to work</u> is to use a modified Android's InputConnection that forcefully sends
+          keydown/keyup events on every BACKSPACE (<a
+            href="https://developer.android.com/reference/android/view/inputmethod/InputConnection"
+            >docs</a
+          >)
+      </p>
     </div>
   </body>
 </html>
