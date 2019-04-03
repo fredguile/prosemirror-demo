@@ -1,22 +1,43 @@
 <html>
   <head>
     <link rel="stylesheet" href="https://prosemirror.net/css/editor.css" />
+    <style type="text/css">
+      #noteditor {
+        border: 1px solid black;
+      }
+
+      .inline-node,
+      .dinosaur {
+        display: inline-block;
+        background: red;
+        color: white;
+      }
+    </style>
   </head>
   <body>
     <div id="editor"></div>
+
     <div style="display: none" id="content">
       <h3>Hello ProseMirror</h3>
 
-      <p>
-        <a href="http://a">a</a>
-        <a href="http://b">b</a>
-        <a href="http://c">c</a>
-      </p>
-
-      <p>
+      <div>
         This is an inline node:
-        <span dino-type="brontosaurus">:brontosaurus</span>
-      </p>
+        <div class="dinosaur" data-dino-type="brontosaurus">
+          <div>:brontosaurus</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="noteditor" contenteditable="true">
+      <div>This isn't ProseMirror, just a contenteditable div.</div>
+
+      <div class="paragraph">
+        Try typing after the uneditable word:
+        <div class="inline-node" contenteditable="false">
+          <div>inline div</div>
+        </div>
+        <br />
+      </div>
     </div>
   </body>
 </html>

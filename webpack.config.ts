@@ -33,7 +33,7 @@ const config: webpack.Configuration = {
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
-    modules: ['node_modules', '..']
+    modules: ["node_modules", ".."]
   },
   plugins: [
     new CleanWebpackPlugin(),

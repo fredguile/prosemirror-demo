@@ -22,23 +22,22 @@ export const dinoNodeSpec: NodeSpec = {
 
   // These nodes are rendered as images with a `dino-type` attribute.
   toDOM: node => [
-    "span",
+    "div",
     {
-      "dino-type": node.attrs.type,
-      title: node.attrs.type,
+      "data-dino-type": node.attrs.type,
       class: "dinosaur"
     },
-    `:${node.attrs.type}`
+    ["div", `:${node.attrs.type}`]
   ],
   // When parsing, such an image, if its type matches one of the known
   // types, is converted to a dino node.
   parseDOM: [
     {
-      tag: "span[dino-type]",
-      getAttrs: dom => {
-        let type = dom.getAttribute("dino-type");
-        return dinos.indexOf(type) > -1 ? { type } : false;
-      }
+      tag: "div[data-dino-type]",
+      getAttrs: dom =>
+        dinos.indexOf(dom.dataset.dinoType) > -1
+          ? { type: dom.dataset.dinoType }
+          : false
     }
   ]
 };
