@@ -5,21 +5,21 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 
 export default function webpackConfig(env: {
-  index: string;
+  demo: string;
 }): webpack.Configuration {
-  const { index } = env;
+  const { demo } = env;
 
-  if (!index) {
+  if (!demo) {
     throw new Error(
-      'Please specify which index to run using "index" environment variable!'
+      'Please specify which demo to run using "demo" environment variable!'
     );
   }
 
-  console.log(`Running demo "${index}"...`);
+  console.log(`Running demo "${demo}"...`);
 
   return {
     mode: "development",
-    entry: `./src/${index}/index.ts`,
+    entry: `./src/${demo}/index.ts`,
     devtool: "eval-source-map",
     module: {
       rules: [
@@ -56,7 +56,7 @@ export default function webpackConfig(env: {
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         title: "Prosemirror Demo",
-        template: `./src/${index}/index.ejs`,
+        template: `./src/${demo}/index.ejs`,
         hash: true
       }),
       new ForkTsCheckerWebpackPlugin()

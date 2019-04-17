@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Scratchpad around ProseMirror for research",
   "scripts": {
-    "start-inline-node-demo": "webpack-dev-server --open --env.index=0-inline-node",
-    "start-composition-demo": "webpack-dev-server --open --env.index=1-composition"
+    "start-inline-node-demo": "webpack-dev-server --open --env.demo=0-inline-node",
+    "start-composition-demo": "webpack-dev-server --open --env.demo=1-composition"
   },
   "license": "MIT",
   "dependencies": {
