@@ -1,5 +1,6 @@
 <html>
   <head>
+    <title>Prosemirror-demo: inline nodes</title>
     <link rel="stylesheet" href="https://prosemirror.net/css/editor.css" />
     <style type="text/css">
       #noteditor {
@@ -12,14 +13,20 @@
       }
 
       .inline-node1 {
+        user-select: all;
+        cursor: pointer;
         background: green;
         color: white;
+        border: 1px solid black;
       }
 
       .inline-node2 {
         display: inline-block;
+        user-select: all;
+        cursor: pointer;
         background: red;
         color: white;
+        border: 1px solid black;
       }
     </style>
   </head>
@@ -27,17 +34,19 @@
     <div id="editor"></div>
 
     <div style="display: none" id="content">
-      <h3>Hello ProseMirror</h3>
+      <h3>Hello ProseMirror!</h3>
+
+      <h4>Inline nodes demo</h4>
 
       <p>
-        First kind of inline node is rendered using a SPAN (for some reasons it's buggy on Android):
+        First inline node is rendered using a SPAN (for some reasons it's buggy on Android):
         <span class="inline-node1" data-span-inline-node="brontosaurus"
           >:brontosaurus</span
         >
       </p>
 
       <div class="paragraph">
-        Second kind of inline node is rendered using a DIV (and 
+        Second inline node is rendered using a DIV (and 
         it works on Android... with condition*):
         <div class="inline-node2" data-div-inline-node="tyrannosaurus">
           <div>:tyrannosaurus</div>

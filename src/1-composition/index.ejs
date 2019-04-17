@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>Prosemirror-demo: composition</title>
+    <link rel="stylesheet" href="https://prosemirror.net/css/editor.css" />
+    <style type="text/css">
+      #crosshair {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 30px;
+        height: 30px;
+        z-index: 1000;
+        transform: translate(-50%, -50%);
+        background: red;
+        mask: url('<%-require("./img/pistol-target.svg")%>') no-repeat center;
+        -webkit-mask: url('<%-require("./img/pistol-target.svg")%>') no-repeat
+          center;
+      }
+
+      #crosshair.changing {
+        background: orange !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="editor"></div>
+    <div id="crosshair"></div>
+
+    <div style="display: none" id="content">
+      <h3>Hello ProseMirror!</h3>
+
+      <h4>Composition demo</h4>
+    </div>
+  </body>
+</html>
