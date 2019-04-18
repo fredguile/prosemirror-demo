@@ -1,21 +1,15 @@
 import { EditorView } from "prosemirror-view";
-import { Transaction } from "prosemirror-transform";
+import { Transaction } from "prosemirror-state";
 import { schema as initialSchema } from "prosemirror-schema-basic";
 import { buildMenuItems } from "prosemirror-example-setup";
 
-import {
-  pinCrosshairOnSelection,
-  setCrosshairChanging,
-  toggleCrosshairChanging
-} from "./crosshair";
+import { pinCrosshairOnSelection, setCrosshairChanging } from "./crosshair";
 
 import {
   compose,
-  tap,
   createEditor,
   createSchemaWithList,
-  defaultDispatchTransaction,
-  statsPlugin,
+  onInputEvent,
   observeDOMNode,
   trackAddedRemoved
 } from "../helpers";
@@ -27,20 +21,29 @@ const crosshairEl = document.querySelector("#crosshair") as HTMLDivElement;
 const mySchema = compose(createSchemaWithList)(initialSchema);
 const menu = buildMenuItems(mySchema);
 
+function updateCrosshairLocation(crosshairEl: HTMLElement) {
+  return (view: EditorView) => pinCrosshairOnSelection(view, crosshairEl);
+}
+
 const editor = createEditor(
   editorEl,
   contentEl,
   mySchema,
   menu,
-  [statsPlugin],
-  compose(
-    defaultDispatchTransaction,
-    tap(tr => {
-      if (tr.selectionSet) {
-        setCrosshairChanging(crosshairEl, true);
+  [
+    onInputEvent("insertText", updateCrosshairLocation(crosshairEl)),
+    onInputEvent("insertCompositionText", updateCrosshairLocation(crosshairEl))
+  ],
+  (tr: Transaction) => {
+    return (view: EditorView) => {
+      view.updateState(view.state.apply(tr));
+      setCrosshairChanging(crosshairEl, true);
+
+      if (tr.selectionSet || tr.docChanged) {
+        pinCrosshairOnSelection(editor, crosshairEl);
       }
-    })
-  )
+    };
+  }
 );
 
 pinCrosshairOnSelection(editor, crosshairEl);
@@ -51,7 +54,6 @@ observeDOMNode(
     ({ added, removed }) => {
       if (added > 0 || removed > 0) {
         setCrosshairChanging(crosshairEl, false);
-        pinCrosshairOnSelection(editor, crosshairEl);
       }
     },
     trackAddedRemoved

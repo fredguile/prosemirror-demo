@@ -1,9 +1,7 @@
 import { DOMParser, Schema } from "prosemirror-model";
-import { EditorState } from "prosemirror-state";
-import { Transaction } from "prosemirror-transform";
+import { EditorState, Plugin, Transaction } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
 import { Menu } from "prosemirror-menu";
-import { Plugin } from "prosemirror-state";
 import { exampleSetup } from "prosemirror-example-setup";
 
 export function defaultDispatchTransaction(

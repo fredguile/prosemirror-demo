@@ -1,3 +1,4 @@
+import { EditorView } from "prosemirror-view";
 import { schema as initialSchema } from "prosemirror-schema-basic";
 
 import buildMenu from "./menu";
@@ -9,8 +10,8 @@ import {
   createSchemaWithList,
   compose,
   observeDOMNode,
-  trackAddedRemoved,
-  statsPlugin
+  onKeyDownEvent,
+  trackAddedRemoved
 } from "../helpers";
 
 const editorEl = document.querySelector("#editor");
@@ -28,7 +29,14 @@ const mySchema = compose(
 
 const menu = buildMenu(mySchema, spanNodeValues, divNodeValues);
 
-createEditor(editorEl, contentEl, mySchema, menu, [statsPlugin]);
+createEditor(editorEl, contentEl, mySchema, menu, [
+  onKeyDownEvent("*", (view: EditorView, event: KeyboardEvent) =>
+    console.log({
+      keydown: event.key,
+      doc: view.state.doc.toJSON()
+    })
+  )
+]);
 
 observeDOMNode(
   editorEl,
